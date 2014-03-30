@@ -268,6 +268,9 @@ adapters.forEach(function (adapter) {
     it('Test create attachment and doc in one go without callback',
       function (done) {
       var db = new PouchDB(dbs.name);
+      //db.info(function (err, info) {
+      //  var update_seq = info.update_seq;
+
       var changes = db.changes({
         complete: function (err, result) {
           result.status.should.equal('cancelled');
@@ -275,8 +278,7 @@ adapters.forEach(function (adapter) {
         },
         live: true,
         onChange: function (change) {
-          if (change.seq === 1) {
-            change.id.should.equal('anotherdoc2', 'Doc has been created');
+          if (change.id === 'anotherdoc2') {
             db.get(change.id, { attachments: true }, function (err, doc) {
               doc._attachments.should.be
                 .an('object', 'doc has attachments object');
@@ -297,28 +299,32 @@ adapters.forEach(function (adapter) {
       var db = new PouchDB(dbs.name);
       db.put({ _id: 'anotherdoc3' }, function (err, resp) {
         should.not.exist(err, 'doc was saved');
-        var changes = db.changes({
-          complete: function (err, result) {
-            result.status.should.equal('cancelled');
-            done();
-          },
-          live: true,
-          include_docs: true,
-          onChange: function (change) {
-            if (change.seq === 2) {
-              change.id.should.equal('anotherdoc3', 'Doc has been created');
-              db.get(change.id, { attachments: true }, function (err, doc) {
-                doc._attachments.should.be.an('object',
+        db.info(function (err, info) {
+
+          var changes = db.changes({
+            since: info.update_seq,
+            complete: function (err, result) {
+              result.status.should.equal('cancelled');
+              done();
+            },
+            live: true,
+            include_docs: true,
+            onChange: function (change) {
+              if (change.id === 'anotherdoc3') {
+                db.get(change.id, { attachments: true }, function (err, doc) {
+                  doc._attachments.should.be.an('object',
                                               'doc has attachments object');
-                should.exist(doc._attachments.mytext);
-                doc._attachments.mytext.data.should.equal('TXl0ZXh0');
-                changes.cancel();
-              });
+                  should.exist(doc._attachments.mytext);
+                  doc._attachments.mytext.data.should.equal('TXl0ZXh0');
+                  changes.cancel();
+                });
+              }
             }
-          }
+          });
+          var blob = testUtils.makeBlob('Mytext');
+          db.putAttachment('anotherdoc3', 'mytext', resp.rev, blob,
+            'text/plain');
         });
-        var blob = testUtils.makeBlob('Mytext');
-        db.putAttachment('anotherdoc3', 'mytext', resp.rev, blob, 'text/plain');
       });
     });
 
