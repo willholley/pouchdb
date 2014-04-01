@@ -157,7 +157,7 @@ adapters.forEach(function (adapter) {
       });
     });
 
-    it('Read db id', function (done) {
+    it.skip('Read db id', function (done) {
       var db = new PouchDB(dbs.name);
       db.id(function (err, id) {
         id.should.be.a('string');
@@ -165,7 +165,7 @@ adapters.forEach(function (adapter) {
       });
     });
 
-    it('Read db id with promise', function (done) {
+    it.skip('Read db id with promise', function (done) {
       var db = new PouchDB(dbs.name);
       db.id().then(function (id) {
         id.should.be.a('string');
@@ -185,7 +185,7 @@ adapters.forEach(function (adapter) {
       });
     });
 
-    it('Read db id after closing Close', function (done) {
+    it.skip('Read db id after closing Close', function (done) {
       new PouchDB(dbs.name, function (err, db) {
         db.close(function (error) {
           db = new PouchDB(dbs.name);
