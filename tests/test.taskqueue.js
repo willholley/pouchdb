@@ -6,9 +6,10 @@ adapters.forEach(function (adapter) {
   describe('test.taskqueue.js-' + adapter, function () {
 
     var dbs = {};
+    var dbcounter = 0;
 
     beforeEach(function (done) {
-      dbs.name = testUtils.adapterUrl(adapter, 'test_taskqueue');
+      dbs.name = testUtils.adapterUrl(adapter, 'test_taskqueue_' + dbcounter++);
       testUtils.cleanup([dbs.name], done);
     });
 

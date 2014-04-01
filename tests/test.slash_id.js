@@ -12,9 +12,10 @@ adapters.forEach(function (adapter) {
   describe('test.slash_ids.js-' + adapter, function () {
 
     var dbs = {};
+    var dbcounter = 0;
 
     beforeEach(function (done) {
-      dbs.name = testUtils.adapterUrl(adapter, 'test_slash_ids');
+      dbs.name = testUtils.adapterUrl(adapter, 'test_slash_ids_' + dbcounter++);
       testUtils.cleanup([dbs.name], done);
     });
 

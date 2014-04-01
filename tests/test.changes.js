@@ -10,8 +10,10 @@ adapters.forEach(function (adapter) {
     var dbs = {};
 
     beforeEach(function (done) {
-      dbs.name = testUtils.adapterUrl(adapter, 'test_changes');
-      dbs.remote = testUtils.adapterUrl(adapter, 'test_changes_remote');
+      dbs.name = testUtils.adapterUrl(adapter, 'test_changes_' +
+        new Date().getTime());
+      dbs.remote = testUtils.adapterUrl(adapter, 'test_changes_remote_' +
+        new Date().getTime());
       testUtils.cleanup([dbs.name, dbs.remote], done);
     });
 

@@ -6,8 +6,17 @@ adapters.forEach(function (adapter) {
   describe('test.all_docs.js-' + adapter, function () {
 
     var dbs = {};
+
+    // use a unique name per db
+    // rapidly deleting and recreating a database with the same name
+    // can lead to shard map conflicts / inconsistencies in a 
+    // clustered environment such as Cloudant / BigCouch
+    var dbcounter = 0;
+
     beforeEach(function (done) {
-      dbs = {name: testUtils.adapterUrl(adapter, 'test_all_docs')};
+      dbs = {name: testUtils.adapterUrl(adapter,
+        'test_all_docs' + dbcounter++)};
+      
       testUtils.cleanup([dbs.name], done);
     });
 

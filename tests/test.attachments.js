@@ -12,9 +12,10 @@ adapters.forEach(function (adapter) {
   describe('test.attachments.js-' + adapter, function () {
 
     var dbs = {};
+    var dbcounter = 0;
 
     beforeEach(function (done) {
-      dbs.name = testUtils.adapterUrl(adapter, 'test_attach');
+      dbs.name = testUtils.adapterUrl(adapter, 'test_attach_' + dbcounter++);
       testUtils.cleanup([dbs.name], done);
     });
 
@@ -579,10 +580,12 @@ repl_adapters.forEach(function (adapters) {
     function () {
 
     var dbs = {};
+    var dbcounter = 0;
 
     beforeEach(function (done) {
-      dbs.name = testUtils.adapterUrl(adapters[0], 'test_attach');
-      dbs.remote = testUtils.adapterUrl(adapters[1], 'test_attach_remote');
+      dbs.name = testUtils.adapterUrl(adapters[0], 'test_attach_' + dbcounter);
+      dbs.remote = testUtils.adapterUrl(adapters[1],
+        'test_attach_remote_' + dbcounter++);
       testUtils.cleanup([dbs.name, dbs.remote], done);
     });
 

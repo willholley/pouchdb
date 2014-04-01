@@ -6,9 +6,10 @@ adapters.forEach(function (adapter) {
   describe('test.basics.js-' + adapter, function () {
 
     var dbs = {};
+    var dbcounter = 0;
 
     beforeEach(function (done) {
-      dbs.name = testUtils.adapterUrl(adapter, 'test_basics');
+      dbs.name = testUtils.adapterUrl(adapter, 'test_basics_' + dbcounter++);
       testUtils.cleanup([dbs.name], done);
     });
 

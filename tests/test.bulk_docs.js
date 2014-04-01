@@ -24,9 +24,10 @@ adapters.forEach(function (adapter) {
   describe('test.bulk_docs.js-' + adapter, function () {
 
     var dbs = {};
+    var dbcounter = 0;
 
     beforeEach(function (done) {
-      dbs.name = testUtils.adapterUrl(adapter, 'test_bulk_docs');
+      dbs.name = testUtils.adapterUrl(adapter, 'test_bulk_docs_' + dbcounter++);
       testUtils.cleanup([dbs.name], done);
     });
 

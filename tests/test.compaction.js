@@ -7,9 +7,11 @@ adapters.forEach(function (adapter) {
   describe('test.compaction.js-' + adapter, function () {
 
     var dbs = {};
+    var dbcounter = 0;
 
     beforeEach(function (done) {
-      dbs.name = testUtils.adapterUrl(adapter, 'test_compaction');
+      dbs.name = testUtils.adapterUrl(adapter, 'test_compaction_' +
+        dbcounter++);
       testUtils.cleanup([dbs.name], done);
     });
 

@@ -6,9 +6,11 @@ adapters.forEach(function (adapter) {
   describe('test.design_docs.js-' + adapter, function () {
 
     var dbs = {};
-
+    var dbcounter = 0;
+    
     beforeEach(function (done) {
-      dbs.name = testUtils.adapterUrl(adapter, 'test_design_docs');
+      dbs.name = testUtils.adapterUrl(adapter, 'test_design_docs_' +
+        dbcounter++);
       testUtils.cleanup([dbs.name], done);
     });
 
