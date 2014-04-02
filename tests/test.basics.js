@@ -354,8 +354,8 @@ adapters.forEach(function (adapter) {
         ]
       }, function (err, infos) {
         infos.length.should.equal(2);
-        infos[0].ok.should.equal(true);
-        infos[1].ok.should.equal(true);
+        infos[0].should.have.property('rev');
+        infos[1].should.have.property('rev');
         done();
       });
     });
@@ -369,8 +369,8 @@ adapters.forEach(function (adapter) {
         ]
       }).then(function (infos) {
         infos.length.should.equal(2);
-        infos[0].ok.should.equal(true);
-        infos[1].ok.should.equal(true);
+        infos[0].should.have.property('rev');
+        infos[1].should.have.property('rev');
         done();
       }).catch(done);
     });
@@ -382,7 +382,6 @@ adapters.forEach(function (adapter) {
         var doc = {_id: '0', a: 1, b: 1};
         info.doc_count.should.equal(0);
         db.put(doc, function (err, res) {
-          res.ok.should.equal(true);
           res.should.have.property('id');
           res.should.have.property('rev');
           db.info(function (err, info) {
