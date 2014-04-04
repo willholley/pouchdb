@@ -341,7 +341,7 @@ adapters.forEach(function (adapter) {
       });
     });
 
-    it('Testing with invalid rev', function (done) {
+    it.skip('Testing with invalid rev', function (done) {
       var db = new PouchDB(dbs.name);
       var doc = { _id: 'adoc' };
       db.put(doc, function (err, resp) {
