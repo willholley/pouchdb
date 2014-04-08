@@ -486,7 +486,7 @@ adapters.forEach(function (adapter) {
       });
     });
 
-    it('Changes with view not present in ddoc', function (done) {
+    it.skip('Changes with view not present in ddoc', function (done) {
       var docs = [
         {_id: '0', integer: 0},
         {_id: '1', integer: 1},
@@ -515,7 +515,7 @@ adapters.forEach(function (adapter) {
       });
     });
 
-    it('Changes with `views` key not present in ddoc', function (done) {
+    it.skip('Changes with `views` key not present in ddoc', function (done) {
       var docs = [
         {_id: '1', integer: 1},
         {
@@ -539,7 +539,7 @@ adapters.forEach(function (adapter) {
       });
     });
 
-    it('Changes with missing param `view` in request', function (done) {
+    it.skip('Changes with missing param `view` in request', function (done) {
       var docs = [
         {_id: '0', integer: 0},
         {_id: '1', integer: 1},
@@ -565,7 +565,7 @@ adapters.forEach(function (adapter) {
       });
     });
 
-    it('Changes limit and view instead of filter', function (done) {
+    it.skip('Changes limit and view instead of filter', function (done) {
       var docs = [
         {_id: '0', integer: 0},
         {_id: '1', integer: 1},
@@ -639,7 +639,7 @@ adapters.forEach(function (adapter) {
       });
     });
 
-    it('Changes last_seq with view instead of filter', function (done) {
+    it.skip('Changes last_seq with view instead of filter', function (done) {
       var docs = [
         {_id: '0', integer: 0},
         {_id: '1', integer: 1},
