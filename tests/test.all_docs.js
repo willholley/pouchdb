@@ -9,8 +9,8 @@ adapters.forEach(function (adapter) {
 
     // use a unique name per db
     // rapidly deleting and recreating a database with the same name
-    // can lead to shard map conflicts / inconsistencies in a 
-    // clustered environment such as Cloudant / BigCouch
+    // can lead to shard map conflicts / inconsistencies 
+    // in a clustered environment such as Cloudant / BigCouch
     var dbcounter = 0;
 
     beforeEach(function (done) {
@@ -60,14 +60,16 @@ adapters.forEach(function (adapter) {
               var ids = ['0', '3', '1', '2'];
               db.changes({
                 complete: function (err, changes) {
-                  // order of changes is not guaranteed in a clustered changes feed
+                  // order of changes is not guaranteed in a clustered 
+                  // changes feed
                   changes.results.forEach(function (row, i) {
                     ids.should.include(row.id, 'seq order');
                   });
                   db.changes({
                     descending: true,
                     complete: function (err, changes) {
-                      // again, order is not guaranteed so unsure if this is a useful test
+                      // again, order is not guaranteed so unsure if this 
+                      // is a useful test
                       ids = ['2', '1', '3', '0'];
                       changes.results.forEach(function (row, i) {
                         ids.should.include(row.id, 'descending=true');
@@ -141,7 +143,7 @@ adapters.forEach(function (adapter) {
       db.info(function (err, info) {
         var update_seq = info.update_seq;
         
-        testUtils.writeDocs(db, JSON.parse(JSON.stringify(origDocs)), 
+        testUtils.writeDocs(db, JSON.parse(JSON.stringify(origDocs)),
           function () {
           db.get('1', function (err, doc) {
             db.remove(doc, function (err, deleted) {
@@ -150,7 +152,7 @@ adapters.forEach(function (adapter) {
               db.changes({
                 since: update_seq,
                 complete: function (err, changes) {
-                  var deleted_ids = changes.results.map(function (c) { 
+                  var deleted_ids = changes.results.map(function (c) {
                     if (c.deleted) { return c.id; }
                   });
                   deleted_ids.should.include('1');
@@ -170,7 +172,7 @@ adapters.forEach(function (adapter) {
       db.info(function (err, info) {
         var update_seq = info.update_seq;
         
-        testUtils.writeDocs(db, JSON.parse(JSON.stringify(origDocs)), 
+        testUtils.writeDocs(db, JSON.parse(JSON.stringify(origDocs)),
           function () {
           db.get('3', function (err, doc) {
             doc.updated = 'totally';
@@ -209,7 +211,8 @@ adapters.forEach(function (adapter) {
       });
     });
 
-    // Cloudant does not support the conflicts=true parameter on _changes feed. Skipping for now.
+    // Cloudant does not support the conflicts=true 
+    //parameter on _changes feed. Skipping for now.
     it.skip('Testing conflicts', function (done) {
       var db = new PouchDB(dbs.name);
       testUtils.writeDocs(db, JSON.parse(JSON.stringify(origDocs)),
