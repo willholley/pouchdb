@@ -13,6 +13,7 @@ adapters.forEach(function (adapter) {
 
     var dbs = {};
     var dbcounter = 0;
+    this.timeout(0);
 
     beforeEach(function (done) {
       dbs.name = testUtils.adapterUrl(adapter, 'test_attach_' + dbcounter++);
@@ -581,6 +582,7 @@ repl_adapters.forEach(function (adapters) {
 
     var dbs = {};
     var dbcounter = 0;
+    this.timeout(0);
 
     beforeEach(function (done) {
       dbs.name = testUtils.adapterUrl(adapters[0], 'test_attach_' + dbcounter);
