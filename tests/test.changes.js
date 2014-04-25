@@ -341,7 +341,7 @@ adapters.forEach(function (adapter) {
                 limit: 2,
                 since: update_seq,
                 include_docs: true
-              }).on('complete', function (err, results) {
+              }).on('complete', function (results) {
                 results = results.results;
                 results.length.should.equal(2);
 
