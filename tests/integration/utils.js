@@ -357,6 +357,14 @@ testUtils.cleanUpCors = function (dburl, callback_) {
     });
   }
 };
+testUtils.findById = function (array, id) {
+  var result = array.filter(function (i) {
+    return i.id === id;
+  });
+  if (result.length === 1) {
+    return result[0];
+  }
+};
 var testDir;
 if (typeof module !== 'undefined' && module.exports) {
   global.PouchDB = require('../../lib');
@@ -387,3 +395,5 @@ if (typeof module !== 'undefined' && module.exports) {
   }
   module.exports = testUtils;
 }
+
+
