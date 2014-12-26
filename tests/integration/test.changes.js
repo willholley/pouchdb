@@ -492,11 +492,15 @@ adapters.forEach(function (adapter) {
               since: update_seq,
               include_docs: true,
               complete: function (err, results) {
-                results.results.length.should.equal(2);
-                results.results[0].id.should.equal('3');
-                results.results[0].doc.integer.should.equal(3);
-                results.results[1].id.should.equal('5');
-                results.results[1].doc.integer.should.equal(5);
+                var changes = results.results;
+                changes.length.should.equal(2);
+
+                findById(changes, '3')
+                  .doc.integer.should.equal(3);
+
+                findById(changes, '5')
+                  .doc.integer.should.equal(5);
+
                 done();
               }
             });
