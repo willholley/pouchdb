@@ -177,6 +177,8 @@ adapters.forEach(function (adapter) {
     it('Modify a doc with sugar syntax and omit the _id', function (done) {
       var db = new PouchDB(dbs.name);
       db.post({test: 'somestuff'}, function (err, info) {
+        if(err) done(err);
+
         db.put({another: 'test', _id: info.id}, info.rev,
           function (err, info2) {
           info.rev.should.not.equal(info2.rev);
